@@ -53,7 +53,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
     int value = root["value"];
     String stopic = String(topic);
-    int endpointIndex = stopic.lastIndexOf('/'); // get last '/'
+    int endpointIndex = stopic.lastIndexOf('/') + 1; // get character after last '/'
     mqttCallback(stopic.substring(endpointIndex), value); // use only topic part after last '/'
 }
 
@@ -72,5 +72,6 @@ void loop() {
         mqttConnect();
     }
     client.loop();
+    ArduinoOTA.handle();
     loopAction();
 }
